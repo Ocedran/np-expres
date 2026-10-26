@@ -87,6 +87,17 @@ function registerCrud(name, resource) {
 
 Object.entries(resources).forEach(([name, resource]) => registerCrud(name, resource));
 
+app.get('/api', (req, res) => {
+  res.json({
+    projeto: 'NP Expres',
+    versao: '1.0.0',
+    recursos: Object.keys(resources).map((name) => ({
+      recurso: name,
+      rotas: [`GET/POST /api/${name}`, `GET/PUT/DELETE /api/${name}/:id`]
+    }))
+  });
+});
+
 app.get('/api/health', (req, res) => res.json({ status: 'ok', projeto: 'NP Expres' }));
 
 app.use((error, req, res, next) => {
