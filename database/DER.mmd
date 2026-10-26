@@ -1,0 +1,46 @@
+erDiagram
+    CLIENTE ||--o{ AGENDAMENTO : realiza
+    PROFISSIONAL ||--o{ DISPONIBILIDADE : possui
+    PROFISSIONAL ||--o{ AGENDAMENTO : atende
+    SERVICO ||--o{ AGENDAMENTO : compoe
+    DISPONIBILIDADE ||--o| AGENDAMENTO : reserva
+
+    CLIENTE {
+        INT id_cliente PK
+        VARCHAR nome
+        VARCHAR telefone
+        VARCHAR email
+        DATETIME data_cadastro
+    }
+    PROFISSIONAL {
+        INT id_profissional PK
+        VARCHAR nome
+        VARCHAR especialidade
+        VARCHAR telefone
+        BOOLEAN ativo
+    }
+    SERVICO {
+        INT id_servico PK
+        VARCHAR nome
+        VARCHAR descricao
+        INT duracao_minutos
+        DECIMAL preco
+        BOOLEAN ativo
+    }
+    DISPONIBILIDADE {
+        INT id_disponibilidade PK
+        INT id_profissional FK
+        DATETIME data_hora_inicio
+        DATETIME data_hora_fim
+        ENUM status
+    }
+    AGENDAMENTO {
+        INT id_agendamento PK
+        INT id_cliente FK
+        INT id_profissional FK
+        INT id_servico FK
+        INT id_disponibilidade FK
+        DATETIME data_criacao
+        ENUM status
+        VARCHAR observacao
+    }
